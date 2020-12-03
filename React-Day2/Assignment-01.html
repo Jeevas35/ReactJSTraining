@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Salart Calculator</title>
+    <script src="../react.development.js"></script>
+    <script src="../react-dom.development.js"></script>
+    <script src="../babel.min.js"></script>
+    <style>
+        body {
+            margin: 50px;
+        }
+
+        .field {
+            margin-bottom: 10px;
+        }
+
+        label {
+            display: block;
+        }
+
+        td {
+            padding-right: 10px;
+            font-size: 16pt;
+            font-weight: bold;
+        }
+    </style>
+    <script type="text/babel">
+        class SalaryCalculator extends React.Component{
+            //state
+            state = {
+                basic : 0,
+                hra : 0,
+                da : 0,
+                tax :0,
+                salary :0
+            };
+
+            //UI Behavior
+            // quotes has to be special quotes instead of normal single quote
+            onSalaryCalculateClick = () => {
+                this.state.basic = parseInt(this.props.getElementById('txtBasic')),
+                this.state.hra = parseInt($('#txtHra').val()),
+                this.state.da = parseInt($('#txtDa').val()),
+                this.state.tax = parseInt($('#rangeTax').val());                
+                var net = (this.get('basic') + this.get('hra') + this.get('da')) * ((100-this.get('tax'))/100);
+                console.log(this.state);
+				this.state.salary = net;
+            }
+
+            //Presentation
+            render(){
+                return(                    
+                    <div>                      
+                        <h3>Salary Calculator</h3>
+                        <hr/>
+                        <label htmlFor="">Basic :</label>
+                        <input type="number" id="txtBasic"/>
+                        <label htmlFor="">HRA :</label>
+                        <input type="number" id="txtHra"/>
+                        <label htmlFor="">DA :</label>
+                        <input type="number" id="txtDa"/>
+                        <label htmlFor="">Tax :</label>
+                        <input type="range"  id="rangeTax" min="0" max="30"/> 
+                        <div className="field">
+                            <input type="button" value="Calculate" id="btnCalculate" onClick={this.onSalaryCalculateClick}/>
+                        </div>      
+                        <label htmlFor="">Salary :</label>
+                        <input type="number" value={this.Salary}/>                                                                                                          
+                    </div>                    
+                )
+            }
+        }
+
+        ReactDOM.render(
+            React.createElement(SalaryCalculator),document.getElementById('root')
+        )
+    </script>
+</head>
+<body>
+    <div id="root">
+       
+    </div>
+</body>
+</html>
